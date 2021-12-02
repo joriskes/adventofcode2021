@@ -1,4 +1,4 @@
-# Advent of code 2020
+# Advent of code 2021
 This year i'm doing advent of code in PHP 7.4. I'm pretty ok in PHP.
 Used composer to pull in some helpful additions
 
