@@ -3,3 +3,4 @@ composer.phar
 .env
 /.idea/
 **/input.txt
+**/output.*
