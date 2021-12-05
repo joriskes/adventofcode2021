@@ -127,7 +127,7 @@ $numbers = explode(',', array_shift($lines));
 
 $bingoBoards = [];
 
-// Make the bingo boards
+// Create bingo boards
 while (count($lines) > BINGO_BOARD_SIZE - 1) {
   $subLines = [];
   while (count($subLines) < BINGO_BOARD_SIZE) {
