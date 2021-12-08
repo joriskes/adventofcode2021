@@ -40,11 +40,8 @@ class Line
 
     public function drawSpot($grid, $x, $y)
     {
-        $res = $grid;
-        $l = str_split($res[$y]);
-        $l[$x] = intval($l[$x]) + 1;
-        $res[$y] = implode('', $l);
-        return $res;
+        $grid[$y][$x] = $grid[$y][$x] + 1;
+        return $grid;
     }
 
     public function drawOn($grid, $onlyPerpendicular)
@@ -112,8 +109,8 @@ foreach ($lineList as $line) {
 $gridPart1 = [];
 $gridPart2 = [];
 for ($height = 0; $height <= $maxY; $height++) {
-    $gridPart1[$height] = str_pad('', $maxX + 1, '.');
-    $gridPart2[$height] = str_pad('', $maxX + 1, '.');
+    $gridPart1[$height] = array_fill(0, $maxX + 1, 0);
+    $gridPart2[$height] = array_fill(0, $maxX + 1, 0);
 }
 
 // Draw lines on grid
@@ -123,23 +120,11 @@ foreach ($lineList as $line) {
     $gridPart2 = $line->drawOn($gridPart2, false);
 }
 
-// Print grid
-//p('Part 1');
-//foreach ($gridPart1 as $g) {
-//  p($g);
-//}
-//p('Part 2');
-//foreach ($gridPart2 as $g) {
-//  p($g);
-//}
-
-
 // Count part 1
 $part1 = 0;
-foreach ($gridPart1 as $g) {
-    $char = str_split($g);
-    foreach ($char as $c) {
-        if (intval($c) >= 2) {
+foreach ($gridPart1 as $line) {
+    foreach ($line as $c) {
+        if ($c >= 2) {
             $part1++;
         }
     }
@@ -147,10 +132,9 @@ foreach ($gridPart1 as $g) {
 
 // Count part2
 $part2 = 0;
-foreach ($gridPart2 as $g) {
-    $char = str_split($g);
-    foreach ($char as $c) {
-        if (intval($c) >= 2) {
+foreach ($gridPart2 as $line) {
+    foreach ($line as $c) {
+        if ($c >= 2) {
             $part2++;
         }
     }
@@ -158,22 +142,3 @@ foreach ($gridPart2 as $g) {
 
 p('Part 1: ' . $part1);
 p('Part 2: ' . $part2);
-
-// Fun, draw it to image
-//$gd = imagecreatetruecolor($maxX, $maxY);
-//$green = imagecolorallocate($gd, 0, 255, 0);
-//$red = imagecolorallocate($gd, 255, 0, 0);
-//
-//foreach ($gridPart2 as $y => $g) {
-//  for ($x = 0; $x < strlen($g); $x++) {
-//    $char = intval($g[$x]);
-//    if ($char == 1) {
-//      imagesetpixel($gd, round($x), round($y), $green);
-//    }
-//    if ($char > 1) {
-//      imagesetpixel($gd, round($x), round($y), $red);
-//    }
-//  }
-//}
-//imagepng($gd, __DIR__ . '/output.png');
-//imagedestroy($gd);
