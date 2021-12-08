@@ -2,10 +2,7 @@
 require __DIR__ . '/../bootstrap.php';
 
 $input = file_get_contents(__DIR__ . '/input.txt');
-$lines = input_to_lines($input);
-$line = trim(array_pop($lines));
-
-$fish = array_map('intval', explode(',', $line));
+$fish = input_first_line_to_int_array($input);
 
 // Run length encode, for speed
 $rle_fish = array(0, 0, 0, 0, 0, 0, 0, 0, 0);
