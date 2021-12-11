@@ -38,12 +38,6 @@ class Line
         return [$this->toX, $this->toY];
     }
 
-    public function drawSpot($grid, $x, $y)
-    {
-        $grid[$y][$x] = $grid[$y][$x] + 1;
-        return $grid;
-    }
-
     public function drawOn($grid, $onlyPerpendicular)
     {
         $isPerpendicular = true;
@@ -57,7 +51,7 @@ class Line
         if ($isPerpendicular) {
             for ($y = $this->fromY; $y <= $this->toY; $y++) {
                 for ($x = $this->fromX; $x <= $this->toX; $x++) {
-                    $res = $this->drawSpot($res, $x, $y);
+                    $res[$y][$x] = $res[$y][$x] + 1;
                 }
             }
         } else {
@@ -66,11 +60,11 @@ class Line
             $stepX = $this->fromX > $this->toX ? -1 : 1;
             $stepY = $this->fromY > $this->toY ? -1 : 1;
             while ($penX !== $this->toX || $penY !== $this->toY) {
-                $res = $this->drawSpot($res, $penX, $penY);
+                $res[$penY][$penX] = $res[$penY][$penX] + 1;
                 $penX += $stepX;
                 $penY += $stepY;
             }
-            $res = $this->drawSpot($res, $penX, $penY);
+            $res[$penY][$penX] = $res[$penY][$penX] + 1;
         }
         return $res;
     }
