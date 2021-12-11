@@ -21,10 +21,11 @@ $counted = [];
 function count_basin($floor, $x, $y)
 {
     global $counted;
-    if (in_array($x . ',' . $y, $counted)) {
+    $counted_index = $y * count($floor[0]) + $x;
+    if (in_array($counted_index, $counted)) {
         return 0;
     }
-    $counted[] = $x . ',' . $y;
+    $counted[] = $counted_index;
     $h = val($floor, $x, $y);
     if ($h > 8) {
         return 0;
