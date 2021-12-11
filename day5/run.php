@@ -47,6 +47,9 @@ class Line
         if ($onlyPerpendicular && !$isPerpendicular) {
             return $grid;
         }
+        if (!$onlyPerpendicular && $isPerpendicular) {
+            return $grid;
+        }
         $res = $grid;
         if ($isPerpendicular) {
             for ($y = $this->fromY; $y <= $this->toY; $y++) {
@@ -100,23 +103,20 @@ foreach ($lineList as $line) {
 }
 
 // Create grids
-$gridPart1 = [];
-$gridPart2 = [];
+$grid = [];
 for ($height = 0; $height <= $maxY; $height++) {
-    $gridPart1[$height] = array_fill(0, $maxX + 1, 0);
-    $gridPart2[$height] = array_fill(0, $maxX + 1, 0);
+    $grid[$height] = array_fill(0, $maxX + 1, 0);
 }
 
 // Draw lines on grid
 /* @var $lineList Line[] */
 foreach ($lineList as $line) {
-    $gridPart1 = $line->drawOn($gridPart1, true);
-    $gridPart2 = $line->drawOn($gridPart2, false);
+    $grid = $line->drawOn($grid, true);
 }
 
 // Count part 1
 $part1 = 0;
-foreach ($gridPart1 as $line) {
+foreach ($grid as $line) {
     foreach ($line as $c) {
         if ($c >= 2) {
             $part1++;
@@ -124,9 +124,12 @@ foreach ($gridPart1 as $line) {
     }
 }
 
+foreach ($lineList as $line) {
+    $grid = $line->drawOn($grid, true);
+}
 // Count part2
 $part2 = 0;
-foreach ($gridPart2 as $line) {
+foreach ($grid as $line) {
     foreach ($line as $c) {
         if ($c >= 2) {
             $part2++;
