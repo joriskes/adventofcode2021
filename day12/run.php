@@ -31,10 +31,8 @@ function traverse_nodes(array $links, array &$paths, string $current, int $max_v
         if ($cave === 'start' || (strtolower($cave) === $cave && count_small_visits($lower_paths) >= $max_visits)) {
             continue;
         }
-        if (!in_array($paths, $path)) {
-            $paths[$attempt] = $path;
-            $attempt = traverse_nodes($links, $paths, $cave, $max_visits, $attempt);
-        }
+        $paths[$attempt] = $path;
+        $attempt = traverse_nodes($links, $paths, $cave, $max_visits, $attempt);
     }
     unset($paths[$attempt]);
     return $attempt;
